@@ -88,6 +88,22 @@ _After creation, the link is available for signing and ideally you store the man
 header("Location: " . $invite->url);
 ```
 
+### Query Mandates
+
+Query mandates with various search parameters to find specific mandates.
+
+```php
+// Query all mandates
+$mandates = $twikey->document->query();
+
+// Query mandates with specific parameters
+$mandates = $twikey->document->query([
+    'email' => 'john@doe.com',
+    'state' => 'SIGNED',
+    'customerNumber' => 'CUST123'
+]);
+```
+
 ### Feed
 
 ```php 

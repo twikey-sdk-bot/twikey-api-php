@@ -39,6 +39,22 @@ class DocumentGateway extends BaseGateway
     }
 
     /**
+     * Query mandates with various search parameters
+     *
+     * @link https://www.twikey.com/api/#mandate-query
+     *
+     * @param array $params Query parameters for mandate search
+     * @throws TwikeyException
+     * @throws ClientExceptionInterface
+     */
+    public function query(array $params = [])
+    {
+        $response = $this->request('GET', '/creditor/mandate/query', ['query' => $params]);
+        $server_output = $this->checkResponse($response, "Querying mandates!");
+        return json_decode($server_output);
+    }
+
+    /**
      * Returns a List of all updated mandates (new, changed or cancelled) since the last call.
      * From the moment there are changes (eg. a new contract/mandate or an update of an existing contract) this call provides all related information to the creditor.
      * The service is initiated by the creditor and provides all MRI information (and extra metadata) to the creditor.

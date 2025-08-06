@@ -91,6 +91,26 @@ class TwikeyTest extends TestCase
         $twikey->document->cancel($contract->mndtId, "cancel");
     }
 
+    public function testQueryMandates()
+    {
+        if (!self::$APIKEY)
+            throw new InvalidArgumentException('Invalid apikey');
+
+        $twikey = new Twikey(self::$http_client,self::$APIKEY,"https://api.beta.twikey.com","sdk-php-test/".Twikey::VERSION);
+        
+        // Test query with no parameters
+        $result = $twikey->document->query();
+        $this->assertIsObject($result);
+        
+        // Test query with specific parameters
+        $params = [
+            'email' => 'john@doe.com',
+            'state' => 'SIGNED'
+        ];
+        $result = $twikey->document->query($params);
+        $this->assertIsObject($result);
+    }
+
     public function testCreateTransaction()
     {
         if (!self::$APIKEY)
